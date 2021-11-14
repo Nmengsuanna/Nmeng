@@ -121,34 +121,61 @@
     
     public class PlayerController : MonoBehaviour
     {
-        public Rigidbody2D rb;
+        public Rigidbody2D rb;//申明公开一个变量为刚体，具体会出现在程序可添加的那边，我们可以自行拖拽一个刚体，则这个刚体受程序的控制
         public float speed;
     
-    
-    
-    
         // Start is called before the first frame update
-        void Start()
+        void Start()//希望在游戏开始的时候就被加载的脚本
         {
             
         }
     
         // Update is called once per frame
-        void Update()
+        void Update()//希望在游戏每一帧的时候都更新
         {
             Movement();
         }
         void Movement()
         {
-            float Horizontalmove;
-            Horizontalmove = Input.GetAxis("Horizontal");
+            float Horizontalmove;//获得下面的参数
+            Horizontalmove = Input.GetAxis("Horizontal");//在input(里面有控制人物移动的东西)中获取(get)Axis(Axes的复数)。当你按下←或者→时会输出-1或者1，因此我们在上面定义一个变量，来获取这个参数。
             if (Horizontalmove != 0) {
-                rb.velocity = new Vector2(Horizontalmove * speed, rb.velocity.y);
+                rb.velocity = new Vector2(Horizontalmove * speed, rb.velocity.y);//这里是真正实现坐标变化也就是移动的程序。new创造了一个新的变量Vector2(用于控制2D的速度)，其中V2是需要2个量的，即(横向速度，纵向速度)
             }
         }
-    
-        
     }
     ```
-
     
+
+- 锁定方向
+
+  将刚体 Constrants 里的 z 勾选，让它不会飞起来
+
+- 修改参数
+
+  在我们试玩的时候修改public中的参数参数不会e保存，此时我们要在脚本中右边的齿轮点击copyComponent，即可复制参数。在结束试玩的时候可以再次点击齿轮选择Paste Component Value![copy](Unity&小狐狸制作.assets/copy.png)
+
+- 改变朝向
+
+  在scale(缩放)控制面朝的方向，1为正，-1为反面。
+
+  - float facedirection = Input.GetAxisRaw(Horizontal); 直接获得  -1，0，1  获取整数(GetAxisRaw是只能获取-1 0 1没法渐变数值，而GetAxis是一个平滑的渐变数值)
+  - transform.localScale = new Vector3(facedirection, 1, 1); 设置方向
+
+​		代码添加原理如左右移动
+
+- 保证不同帧率正常
+
+  - Update 函数改为 FixedUpdate() 函数，为固定每0.02s执行一次
+
+  - rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime, rb.velocity.y); 速度乘以一个时间参数
+
+    为什么要乘一个时间参数呢？
+
+    这个程序是放在`update`或者是`fixedupdate`中的，本来就是指每帧执行一次这个指令，如果不乘一个`Time.deltaTime`，本身这个程序就是不符合逻辑的，因为我们想要的假如有speed为10，是想指速度每秒为10，但是实际上是(帧数)*10，因为每1帧都执行了一次speed为10的指令，改变的位置也就成为理应有的(帧数)倍。
+
+- 跳跃
+  - Input.GetButtonDown(Jump) ；获取跳跃按键
+  - rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.deltaTime); 改变y轴方向
+  - Rigidbody2D 中的GravityScale 参数同样可以调整跳跃力度(施加重力)
+
