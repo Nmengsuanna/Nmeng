@@ -5,27 +5,27 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637720556340385916
-    m_Hash: 929680113
+      ticks: 637726717549135940
+    m_Hash: 712277850
   m_LockFileStatus:
     m_FilePath: D:/GITHUB-PUSH/Nmeng/Foxdemo/Foxdemo/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637720556340445505
-    m_Hash: 3991177793
+      ticks: 637726717549224355
+    m_Hash: 2166189838
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
   m_Packages:
     m_ResolvedPackages:
-    - packageId: com.unity.2d.animation@5.0.8
+    - packageId: com.unity.2d.animation@5.0.9
       testable: 0
       isDirectDependency: 1
-      version: 5.0.8
+      version: 5.0.9
       source: 1
-      resolvedPath: D:\GITHUB-PUSH\Nmeng\Foxdemo\Foxdemo\Library\PackageCache\com.unity.2d.animation@5.0.8
+      resolvedPath: D:\GITHUB-PUSH\Nmeng\Foxdemo\Foxdemo\Library\PackageCache\com.unity.2d.animation@5.0.9
       assetPath: Packages/com.unity.2d.animation
       name: com.unity.2d.animation
       displayName: 2D Animation
@@ -164,13 +164,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637684996900000000
+      datePublishedTicks: 637704378040000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/2d.git
-        revision: f2df77302616ee97ac0bda980859324394e44df3
+        revision: 66590de9de7c21359f721ef05db04d7f1753bde9
         path: 
     - packageId: com.unity.2d.pixel-perfect@4.0.1
       testable: 0
@@ -344,7 +344,7 @@ m_PackageAssets:
       - name: com.unity.modules.uielementsnative
         version: 1.0.0
       - name: com.unity.2d.animation
-        version: 5.0.8
+        version: 5.0.9
       - name: com.unity.mathematics
         version: 1.1.0
       - name: com.unity.modules.animation
@@ -497,6 +497,7 @@ m_PackageAssets:
         - 5.1.3
         - 5.1.4
         - 5.1.5
+        - 5.1.6
         - 6.0.0-pre.1
         - 6.0.0-pre.2
         - 6.0.0
@@ -510,7 +511,8 @@ m_PackageAssets:
         - 8.0.0-pre.4
         compatible:
         - 5.1.5
-        verified: 5.1.5
+        - 5.1.6
+        verified: 5.1.6
       dependencies:
       - name: com.unity.mathematics
         version: 1.1.0
@@ -669,7 +671,9 @@ m_PackageAssets:
         - 1.12.5
         - 1.13.5
         - 1.14.1
+        - 1.14.4
         - 1.15.1
+        - 1.15.4
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -683,7 +687,9 @@ m_PackageAssets:
         compatible:
         - 1.13.5
         - 1.14.1
+        - 1.14.4
         - 1.15.1
+        - 1.15.4
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -3624,6 +3630,7 @@ m_PackageAssets:
         - 6.0.0-pre.3
         - 6.0.0-pre.4
         - 6.0.0
+        - 6.0.1
         - 7.0.0-pre.3
         compatible:
         - 4.0.3

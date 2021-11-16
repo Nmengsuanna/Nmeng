@@ -179,3 +179,52 @@
   - rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.deltaTime); 改变y轴方向
   - Rigidbody2D 中的GravityScale 参数同样可以调整跳跃力度(施加重力)
 
+- 动画
+
+  - 添加组件
+
+    Animator(动画器)，需要一个controller来驱动
+
+  - 控制器
+
+    创建一个animation controller(动画器控制器)
+
+    将animation controller拖拽到animator的controller之中
+
+  - 打开动画器面板
+
+    window - Animation - Animation
+
+    可以将你需要的动画拖拽进动画器面板来实现动画
+
+    运用Smaples或者拖拽图片 设置动画速率
+
+  - 逻辑控制器
+
+    window - Animation - Animator(动画器)
+
+    对动画可以设置逻辑关系，何时该做何事
+
+    右键animator中动画方块选择make transition(创建过渡)可以创建箭头
+
+    箭头的参数在animator中选择
+
+    在conditions(条件)中可以设置逻辑关系，例如当running＞0.1时是idle指向running；当running＜0.1时是running指向idle
+
+    动作切换的时候我们如果不需要一个过渡则  去掉  Has Exit Time      Transition Duration 设置成 0
+
+  - 控制代码
+
+    运用代码来控制running的数值,如
+
+    ```c#
+     anim.SetFloat("running", Mathf.Abs(facedirection));
+    ```
+
+    anim中的float中的running这个变量的值是facedirection的绝对值
+
+    这里刚刚好可以用到当不动的时候facedirection=0 动的时候facedirection=1或者-1
+
+    facedirection刚刚好改变了面向，从而播放动画也会按照面向播放
+
+  
