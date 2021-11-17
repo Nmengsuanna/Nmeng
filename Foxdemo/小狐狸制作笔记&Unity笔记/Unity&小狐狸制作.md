@@ -179,7 +179,7 @@
   - rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.deltaTime); 改变y轴方向
   - Rigidbody2D 中的GravityScale 参数同样可以调整跳跃力度(施加重力)
 
-- 动画
+- 左右移动动画
 
   - 添加组件
 
@@ -227,4 +227,35 @@
 
     facedirection刚刚好改变了面向，从而播放动画也会按照面向播放
 
-  
+
+- 跳跃降落动画
+
+  - 导入跳跃动画 逻辑
+
+    和左右移动动画的导入一样
+
+  - 布尔形
+
+    true or false
+
+  - 整体思路
+
+    我们需要在站立idle或者跑步running的时候可以当跳跃为true的时候启动跳跃
+
+    当我们降落falling的时候跳跃为false 降落为true
+
+    当回到地面的时候我们需要站立idle 此时falling为false idel为true
+
+  - 程序
+
+    `public LayerMask ground;`公开了一个叫ground的layermask，作用是获得属于地面的信息
+
+    `public Collider2D coll;`公开了一个叫coll的Collider 2D，作用是获得角色的刚体
+    `if (anim.GetBool("jumping"))`如果我们按下jump这个键，jumping就是true`if (anim.GetBool("jumping"))`
+
+    如果在空中的过程中，竖直速度降为0那么jumping为false falling为true`anim.SetBool("jumping", false);` `anim.SetBool("falling", true);`
+
+    否则的话当狐狸的刚体碰撞到地面这个图层的时候falling为false idle为true` anim.SetBool("falling", false);` `anim.SetBool("idle", true);`
+
+    
+

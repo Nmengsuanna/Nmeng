@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     public float jumpforce;
     //控制组件动画器
     public Animator anim;
+    //
+    public LayerMask ground;
+    //
+    public Collider2D coll;
+
 
 
 
@@ -22,9 +27,10 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Movement();
+        SwitchAnim();
     }
     void Movement()
     {
@@ -37,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         //角色移动
         if (Horizontalmove != 0) {
-            rb.velocity = new Vector2(Horizontalmove * speed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(Horizontalmove * speed , rb.velocity.y);
             //角色移动时的动作
             anim.SetFloat("running", Mathf.Abs(facedirection));
         }
@@ -49,10 +55,27 @@ public class PlayerController : MonoBehaviour
        //角色跳跃
         if(Input.GetButtonDown("Jump"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.fixedDeltaTime);
+            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+            anim.SetBool("jumping", true);
          
         }
     }
+    //改变动画
+    void SwitchAnim()
+    {
+        if (anim.GetBool("jumping"))
+        {
+            if (rb.velocity.y < 0)
+            {
+                anim.SetBool("idle", false);
 
-    
+                anim.SetBool("jumping", false);
+                anim.SetBool("falling", true);
+            }
+        }else if (coll.IsTouchingLayers(ground))
+            {
+                anim.SetBool("falling", false);
+                anim.SetBool("idle", true);
+            }
+    }
 }
