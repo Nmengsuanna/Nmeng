@@ -308,7 +308,6 @@
         transform.position = new Vector3 (player.position.x,player.position.y,-10f)//让摄像头的位置设为玩家的位置
     ```
     
-
   - 添加Cinemachine控制镜头
   
     对背景添加 Polygon Colider2d(多边形刚体)     勾选isTriger(可以让物体不发生碰撞)
@@ -319,3 +318,37 @@
   
     Lens- Orthographic Size 设置镜头大小
 
+- 创建Collection收藏物
+
+  - 创建物品的 Object  动画(方法和player的动画一样)
+
+  - 拾取效果  在 PlayerController void OnTriggerEnter2D(Collider2D collision) 方法里
+     注意，物品的istrigger 要勾选上
+
+  - 标记tag
+
+    将樱桃的标签改为collection
+
+  - 代码
+
+    ```c#
+    private void OnTriggerEnter2D(Collider2D collision)//如果一个2D碰撞体进入的触发器
+        {
+            if (collision.tag == "Collection")//碰撞的这个collision的标签是Collection
+            {
+                Destroy(collision.gameObject);//则销毁物品
+                Cherry += 1;//前置的计数+1
+            }
+    ```
+
+  - 注意如果狐狸的2个碰撞都碰到了cherry，那么计数会＋2
+
+- 创建一个Perfabs文件夹防止重复利用 object
+
+  在后续如关卡制作中我们可以重复利用里面已经做好的模型，在里面修改的时候所有模型也会更改。
+
+- 环境
+
+  直接添加新的对象或者拖拽你想添加的环境
+
+  我们创建更多图层，利用Layer层级调整显示效果，以便对环境更好的更改

@@ -16,17 +16,20 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     //
     public Collider2D coll;
+    //
+    public int Cherry = 0;
 
 
 
 
-    // Start is called before the first frame  update
+
+    
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         Movement();
@@ -78,4 +81,13 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("idle", true);
             }
     }
-}
+    //
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Collection")
+        {
+            Destroy(collision.gameObject);
+            Cherry += 1;
+        }
+    }
+} 
