@@ -257,5 +257,65 @@
 
     否则的话当狐狸的刚体碰撞到地面这个图层的时候falling为false idle为true` anim.SetBool("falling", false);` `anim.SetBool("idle", true);`
 
+    ```c#
+    if (anim.GetBool("jumping"))
+            {
+                if (rb.velocity.y < 0)
+                {
+                    anim.SetBool("idle", false);
     
+                    anim.SetBool("jumping", false);
+                    anim.SetBool("falling", true);
+                }
+            }else if (coll.IsTouchingLayers(ground))
+                {
+                    anim.SetBool("falling", false);
+                    anim.SetBool("idle", true);
+                }
+        }
+    ```
+
+- bug修复-游玩卡顿
+
+  遇到游玩突然前进不了的时候
+
+  需要为玩家添加一个圆形刚体，同时将矩形刚体缩小
+
+- private私有
+
+  private一个变量的时候那个变量无法调试，可以用来私有component(组件)
+
+  同时在游戏一开始(`void start()`)中将组件加载,例如
+
+  ```c#
+  rb=GetComponent<Rigbody2D>();
+  ```
+
+- 控制角色镜头
+
+  - 创建新脚本
+
+    添加脚本组件取名CameraController控制镜头
+
+    脚本
+
+    在游戏里更新的每一帧都更新
+
+    ```c#
+    public Transform player;//公开一个读取的Transform，我们想要读取player的transform
+    
+    void Start(){
+        transform.position = new Vector3 (player.position.x,player.position.y,-10f)//让摄像头的位置设为玩家的位置
+    ```
+    
+
+  - 添加Cinemachine控制镜头
+  
+    对背景添加 Polygon Colider2d(多边形刚体)     勾选isTriger(可以让物体不发生碰撞)
+  
+    添加Cinemachine Confiner(在最下方的Add Extension中)  
+  
+    填入 Polygon
+  
+    Lens- Orthographic Size 设置镜头大小
 
