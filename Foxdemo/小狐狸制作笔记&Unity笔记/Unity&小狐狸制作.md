@@ -352,3 +352,18 @@
   直接添加新的对象或者拖拽你想添加的环境
 
   我们创建更多图层，利用Layer层级调整显示效果，以便对环境更好的更改
+
+- 设置物理效果
+
+  在游戏的过程中我们遇到了蹭边不掉落情况，是因为player的物理材质拥有摩擦导致。
+
+  我们可以创建一个没有摩擦的物理效果
+  create - physic Materail 2D 中设置 Friction 0
+
+  将它设置到Player的 Box Collider 2D
+
+- 取消超级跳
+
+  给予判断当碰撞到地面的时候才给予跳跃
+
+  根据 coll.IsTouchingLayers(grouder) 判断触地
