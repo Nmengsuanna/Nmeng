@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,12 +19,11 @@ public class PlayerController : MonoBehaviour
     public Collider2D coll;
     //
     public int Cherry = 0;
+    //樱桃UI数目
+    public Text CherryNum;
 
 
 
-
-
-    
     void Start()
     {
         
@@ -81,13 +81,14 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("idle", true);
             }
     }
-    //
+    //收集物品
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Collection")
         {
             Destroy(collision.gameObject);
             Cherry += 1;
+            CherryNum.text = Cherry.ToString();
         }
     }
 } 

@@ -367,3 +367,39 @@
   给予判断当碰撞到地面的时候才给予跳跃
 
   根据 coll.IsTouchingLayers(grouder) 判断触地
+
+- UI入门
+
+  - 创建UI
+
+    右键创建UI中的canvas(画布)，所有的UI需要在canvas之中创建
+
+  - 计数
+
+    创建一个text(文本)类型的UI(之中可以设置一些参数)
+
+    在脚本里面公开一个text类型的变量，拖拽这个text来调用它
+
+  - 代码
+
+    ```c#
+    using UnityEngine.UI;//使用unity的UI前置，才可以创建Text的类
+    public Text CherryNum;//公开一个text类型的变量
+    private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "Collection")
+            {
+                Destroy(collision.gameObject);
+                Cherry += 1;
+                CherryNum.text = Cherry.ToString();//让CherryNum中的text=Cherry
+            }
+        }
+    ```
+
+  - 固定位置
+
+    如图
+
+![QQ截图20211119221233](Unity&小狐狸制作.assets/QQ截图20211119221233.png)
+
+在这里可以调整UI的相对位置，也就是与![QQ截图20211119221534](Unity&小狐狸制作.assets/QQ截图20211119221534.png)相对的位置
