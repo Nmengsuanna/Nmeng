@@ -403,3 +403,34 @@
 ![QQ截图20211119221233](Unity&小狐狸制作.assets/QQ截图20211119221233.png)
 
 在这里可以调整UI的相对位置，也就是与![QQ截图20211119221534](Unity&小狐狸制作.assets/QQ截图20211119221534.png)相对的位置
+
+- 敌人
+
+  - 创建敌人
+
+    利用sprite创建敌人
+
+  - 敌人属性
+
+    我们需要敌人有重力添加rigbody
+
+    我们需要敌人会和角色发生碰撞添加collider 2D
+
+  - 代码
+
+    ```c#
+     private void OnCollisionEnter2D(Collision2D collision)//私有一个对Collision发生碰撞的时候触发
+        {
+            if (anim.GetBool("falling"))//设置角色降落时才能触发
+            {
+                if (collision.gameObject.tag == "Enemy")//如果触发的对象的标签是Enemy(注意这里和tag是gameObject里面的)
+                {
+                    Destroy(collision.gameObject);//消灭敌人
+                    rb.velocity = new Vector2(rb.velocity.x, jumpforce);//给予跳跃效果
+                    anim.SetBool("jumping", true);//给予跳跃动作
+                }
+            }
+        }
+    ```
+
+    

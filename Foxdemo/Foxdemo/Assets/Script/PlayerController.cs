@@ -91,4 +91,18 @@ public class PlayerController : MonoBehaviour
             CherryNum.text = Cherry.ToString();
         }
     }
+    //ÏûÃðµÐÈË
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (anim.GetBool("falling"))
+        {
+            if (collision.gameObject.tag == "Enemy")
+            {
+                Destroy(collision.gameObject);
+                rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+                anim.SetBool("jumping", true);
+            }
+        }
+    }
 } 
+
