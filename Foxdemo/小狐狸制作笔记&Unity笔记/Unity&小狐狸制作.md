@@ -485,4 +485,62 @@
             }
     ```
 
-    
+  
+  
+
+- AI敌人移动
+
+​	设置敌人的AI我们有几个问题要解决
+
+1. 敌人运动的范围			
+
+2. 敌人朝向以及适配的运动方向
+
+   - 敌人运动范围代码及其移动
+
+     ```c#
+     //导入左右点坐标
+     public Transform leftpoint, rightpoint;
+     //预设获取参数名字
+     private float leftx, rightx;
+     void Start()
+     {//获得左右坐标点
+         leftx = leftpoint.transform.position.x;
+         rightx = rightpoint.transform.position.x;
+     }
+      void Movement()
+      {
+          //如果面朝左边
+          if (faceleft)
+          {
+              //forg的速度设置为负方向
+              rb.velocity = new Vector2(-speed, rb.transform.position.y);
+              //如果说他的位置超过了左点
+              if (rb.transform.position.x < leftx)
+              {
+                  //转向 
+                  rb.transform.localScale = new Vector3(-1, 1, 1);
+                  //朝右
+                  faceleft = false;
+              }
+          }
+          //朝右
+          else
+          {
+              rb.velocity = new Vector2(speed, rb.transform.position.y);
+              if (rb.transform.position.x > rightx)
+              {
+                  rb.transform.localScale = new Vector3(1, 1, 1);
+                  faceleft = true;
+              }
+          }
+      }
+     
+     ```
+
+- 销毁子项目
+
+  游戏时子项目会继承父项目的参数(如坐标)，为了不让其随父项目而改变我们可以用一下手段
+
+  1. 游戏开始时`transform.DeathChildren()`
+  2. 游戏开始时保存坐标后摧毁该对象
