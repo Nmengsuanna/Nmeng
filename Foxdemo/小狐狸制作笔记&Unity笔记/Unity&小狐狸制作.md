@@ -433,4 +433,56 @@
         }
     ```
 
+
+- 设置受伤状态
+
+  受伤状态我们分为两步，一是水平碰到敌人会被反弹；二是设置受伤动画
+
+  - 反弹
+
+    当我们受伤的时候会对小狐狸施加一个向左或者向右的力
+
+    - 代码
+
+      ```c#
+      //设置受伤是否
+      private bool isHurt;
+      //碰到敌人后反弹
+      else if (transform.position.x < collision.gameObject.transform.position.x)
+      {
+          rb.velocity = new Vector2(-10f, rb.velocity.y);
+          isHurt = true;
+          anim.SetBool("hurt", true);
+      }
+      else if (transform.position.x > collision.gameObject.transform.position.x)
+      {
+          rb.velocity = new Vector2(10f, rb.velocity.y);
+          isHurt = true;
+          anim.SetBool("hurt", true);
+      }
+      //先判断角色与敌人碰撞时的相对位置，再给予力
+      void Update()
+      {
+          if (isHurt != true) //设置受伤的时候不能移动，也就是不受伤的时候才能移动
+          {
+              Movement();
+          }
+      ```
+
+  - 动画
+
+    在`//改变动画`里面设置
+
+    ```c#
+    else if (isHurt)
+            {
+                if (Mathf.Abs(rb.velocity.x) < 0.1f)//当速度小于多少的时候才可以移动
+                {
+                    isHurt = false;//受伤状态取消
+                    anim.SetBool("hurt", false);//把受伤动画的布尔值设置成false
+                    anim.SetBool("idle", true); //把站立动画的布尔值设置成true
+                }
+            }
+    ```
+
     

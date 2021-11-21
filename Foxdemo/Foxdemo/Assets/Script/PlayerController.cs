@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public int Cherry = 0;
     //樱桃UI数目
     public Text CherryNum;
+    //是否受伤
+    private bool isHurt;
 
 
 
@@ -32,7 +34,10 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        Movement();
+        if (isHurt != true) 
+        {
+            Movement();
+        }
         SwitchAnim();
     }
     void Movement()
@@ -63,6 +68,7 @@ public class PlayerController : MonoBehaviour
          
         }
     }
+    
     //改变动画
     void SwitchAnim()
     {
@@ -75,11 +81,21 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("jumping", false);
                 anim.SetBool("falling", true);
             }
-        }else if (coll.IsTouchingLayers(ground))
+        }
+        else if (isHurt)
+        {
+            if (Mathf.Abs(rb.velocity.x) < 0.1f)
             {
-                anim.SetBool("falling", false);
-                anim.SetBool("idle", true);
+                isHurt = false;
+                anim.SetBool("hurt", false);
+                anim.SetBool("idle", true); 
             }
+        }
+        else if (coll.IsTouchingLayers(ground))
+        {
+            anim.SetBool("falling", false);
+            anim.SetBool("idle", true);
+        }
     }
     //收集物品
     private void OnTriggerEnter2D(Collider2D collision)
@@ -91,18 +107,32 @@ public class PlayerController : MonoBehaviour
             CherryNum.text = Cherry.ToString();
         }
     }
-    //消灭敌人
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (anim.GetBool("falling"))
+        //有关敌人
+        if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.gameObject.tag == "Enemy")
+            //消灭敌人
+            if (anim.GetBool("falling"))
             {
                 Destroy(collision.gameObject);
                 rb.velocity = new Vector2(rb.velocity.x, jumpforce);
                 anim.SetBool("jumping", true);
             }
-        }
+            //碰到敌人受伤后反弹
+            else if (transform.position.x < collision.gameObject.transform.position.x)
+            {
+                rb.velocity = new Vector2(-10f, rb.velocity.y);
+                isHurt = true;
+                anim.SetBool("hurt", true);
+            }
+            else if (transform.position.x > collision.gameObject.transform.position.x)
+            {
+                rb.velocity = new Vector2(10f, rb.velocity.y);
+                isHurt = true;
+                anim.SetBool("hurt", true);
+            }
+        }     
     }
 } 
 
