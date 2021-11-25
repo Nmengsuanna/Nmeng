@@ -549,3 +549,51 @@
   动画事件是指对动画添加一个事件，并且到对应的时间时执行他
 
   在animator中第二行最右边是添加事件，事件的内容可以是函数
+
+- 类
+
+  类可以在不同代码间引用，例如，假设我们有一个类叫做Enemy
+
+  ```c#
+  public class Enemy_eagle : MonoBehaviour;
+  //我们只要将MonoBehaviour改成Enemy，那么Enemy_eagle就属于Enemy这类，并成为Enemy的"子"
+  ```
+
+  - 父与子
+
+    子可以调用所属父的代码，但是需要在函数前面假如protected以表示在是在父子之间受保护的，例如
+
+    ```c#
+    //父
+    protected void Start()
+        {
+            anim = GetComponent<Animator>();
+        }
+    //子
+    protected void Start()
+        {
+        //表示是引用(基于)父的start
+            base.Start();
+     	}
+    ```
+
+  - 重载与虚拟
+
+    如果我们想让所有子类的方法都由父类来执行，我们需要用到重载与虚拟
+    
+    - override(重载)与virtual(虚拟)
+    
+      override(重载)是所需要读写的方法
+    
+      virtual(虚拟)是所要被重载的对象，由于是虚拟的，所以是一个变量
+    
+      例如：
+    
+      ```c#
+      //子类
+      protected override void Start();
+      //父类
+      protected virtual void Start();
+      ```
+    
+      

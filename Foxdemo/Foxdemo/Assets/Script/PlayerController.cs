@@ -112,10 +112,11 @@ public class PlayerController : MonoBehaviour
         //有关敌人
         if (collision.gameObject.tag == "Enemy")
         {
+            Enemy enemy  = collision.gameObject.GetComponent<Enemy>();
             //消灭敌人
             if (anim.GetBool("falling"))
             {
-                Destroy(collision.gameObject);
+                enemy.JumpOn();
                 rb.velocity = new Vector2(rb.velocity.x, jumpforce);
                 anim.SetBool("jumping", true);
             }

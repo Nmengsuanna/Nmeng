@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_frog : MonoBehaviour
+public class Enemy_frog : Enemy
 {
     //获取刚体
     private Rigidbody2D rb;
@@ -14,21 +14,27 @@ public class Enemy_frog : MonoBehaviour
     public float speed, jumpforce;
     //预设获取参数名字
     private float leftx, rightx;
+    
     //创建动画器组件
-    private Animator anim;
-    //
+    //private Animator anim;
+    
+    //导入地面
     public LayerMask Ground;
     //导入2D碰撞体
     private Collider2D coll;
 
 
-
-    void Start()
+    //将start设置成重载的，也就是可以将内容重新写入父类中以取代原本父类的内容
+    protected override void Start()
     {
+        //引用父级的start的内容,内容包括了获得动画组件
+        base.Start();
         //获取刚体 
         rb = GetComponent<Rigidbody2D>();
+        
         //获得动画器组件
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
+        
         //获得碰撞体组件
         coll = GetComponent<Collider2D>();
         //获得左右坐标点
