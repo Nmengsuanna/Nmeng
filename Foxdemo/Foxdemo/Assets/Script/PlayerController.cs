@@ -23,12 +23,14 @@ public class PlayerController : MonoBehaviour
     public Text CherryNum;
     //是否受伤
     private bool isHurt;
+    //传入音源
+    public AudioSource jumpAudio;
 
 
 
     void Start()
     {
-        
+    
     }
 
     
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
         }
         SwitchAnim();
     }
+    //角色移动
     void Movement()
     {
         float Horizontalmove;
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
        //角色跳跃
         if(Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))
         {
+            jumpAudio.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpforce);
             anim.SetBool("jumping", true);
          
@@ -77,7 +81,6 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.y < 0)
             {
                 anim.SetBool("idle", false);
-
                 anim.SetBool("jumping", false);
                 anim.SetBool("falling", true);
             }

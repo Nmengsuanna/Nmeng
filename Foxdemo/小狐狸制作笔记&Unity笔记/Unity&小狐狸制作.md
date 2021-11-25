@@ -596,4 +596,13 @@
       protected virtual void Start();
       ```
     
-      
+
+- 音效(Audio)
+
+  添加组件Audio Source，将音频文件拖拽到Audio Clip中
+
+  .play为播放音频
+
+- 修改prefabs
+
+  要注意在右上角的overrides修改
