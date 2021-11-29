@@ -606,3 +606,42 @@
 - 修改prefabs
 
   要注意在右上角的overrides修改
+
+- 对话框
+
+  添加UI-画板(Panel)，并添加text
+
+  - 触发对话
+
+    利用House的collision作为trigger来触发,也就是我们要在House中写代码，并且读取Dialogue的GameObject
+
+  - 代码
+
+    ```c#
+    public class EnterHouse_Dialogue : MonoBehaviour
+    {
+        //获得Dialogue的所有组件
+        public GameObject enterDialogue;
+        //触发碰撞，激活对话框
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.tag == "Player")
+            {
+                enterDialogue.SetActive(true);
+            }
+        }
+        //离开，关闭对话框
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.tag == "Player")
+            {
+                enterDialogue.SetActive(false);
+            }
+        }
+    }
+    ```
+
+- 制作动画
+  add Animation
+  点击录制按钮，设置不同帧的样式，每一帧即你所改动的所有内容。
+
