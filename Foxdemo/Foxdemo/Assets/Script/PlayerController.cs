@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     private bool isHurt;
     //传入音源
     public AudioSource jumpAudio;
+    //下蹲关闭的碰撞箱
+    public Collider2D DisColl;
+    //判断是否顶头
+    public Transform CeilingCheck;
 
 
 
@@ -54,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         //角色移动
         if (Horizontalmove != 0) {
-            rb.velocity = new Vector2(Horizontalmove * speed , rb.velocity.y);
+            rb.velocity = new Vector2(Horizontalmove * speed, rb.velocity.y);
             //角色移动时的动作
             anim.SetFloat("running", Mathf.Abs(facedirection));
         }
@@ -99,6 +103,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("falling", false);
             anim.SetBool("idle", true);
         }
+        Crouch();
     }
     //收集物品
     private void OnTriggerEnter2D(Collider2D collision)
@@ -137,6 +142,24 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("hurt", true);
             }
         }     
+    }
+    //下蹲
+    void Crouch()
+    {
+        //检查头顶
+        if (!Physics2D.OverlapCircle(CeilingCheck.position, 0.2f,ground)) 
+        { 
+            if (Input.GetButton("Crouch"))
+            {
+                anim.SetBool("crouching", true);
+                DisColl.enabled = false;
+            }
+            else 
+            {
+                anim.SetBool("crouching", false);
+                DisColl.enabled = true;
+            }
+        }
     }
 } 
 
