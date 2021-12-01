@@ -309,13 +309,15 @@
     ```
     
   - 添加Cinemachine控制镜头
-  
+
     对背景添加 Polygon Colider2d(多边形刚体)     勾选isTriger(可以让物体不发生碰撞)
-  
+
+    在上方添加Cinemachine选择Create 2Dcamera
+
     添加Cinemachine Confiner(在最下方的Add Extension中)  
-  
+
     填入 Polygon
-  
+    
     Lens- Orthographic Size 设置镜头大小
 
 - 创建Collection收藏物
@@ -654,6 +656,39 @@
     ```c#
     Physics2D.OverlapCircle()
     ```
+
+- 游戏死亡重开
+
+  添加一个DeadLine让狐狸碰撞到的时候重开
+
+  - 重载游戏
+
+    头文件:`using UnityEngine.SceneManagement;`
+
+  - 代码
+
+    ```c#
+     void Restart()
+    { 						
+         SceneManager.LoadScene(SceneManager.GetActiveScene().name);//获取该加载场景的名字并重载该场景
+    }
+    ```
+
+- 进入下一场景
+
+  - 代码
+
+    ```c#
+    void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))//按下关键键E触发
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);//读取场景的INDEX加1
+            }
+        }
+    ```
+
+    
 
 
 

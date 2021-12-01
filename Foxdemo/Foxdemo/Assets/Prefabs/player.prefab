@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 6297055985030454030}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.052070618, y: -0.03303802}
+  m_Offset: {x: 0.01572752, y: -0.03303802}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -165,7 +165,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.58125496, y: 0.5688493}
+  m_Size: {x: 0.8538294, y: 0.5688493}
   m_EdgeRadius: 0
 --- !u!58 &4363631211226994807
 CircleCollider2D:
@@ -176,7 +176,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 4363631211226994814}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 924cf82956ac2d045b5eb7d9a52add83, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -196,8 +196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4363631211226994802}
-  speed: 10
-  jumpforce: 10
+  speed: 7
+  jumpforce: 15
   anim: {fileID: 4363631211226994801}
   ground:
     serializedVersion: 2
@@ -205,7 +205,9 @@ MonoBehaviour:
   coll: {fileID: 4363631211226994807}
   Cherry: 0
   CherryNum: {fileID: 0}
-  jumpAudio: {fileID: 0}
+  jumpAudio: {fileID: 6297055985030454030}
+  DisColl: {fileID: 4363631211226994813}
+  CeilingCheck: {fileID: 9140958851008631938}
 --- !u!95 &4363631211226994801
 Animator:
   serializedVersion: 3
