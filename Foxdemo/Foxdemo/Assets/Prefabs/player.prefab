@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4363631211226994802}
   speed: 7
-  jumpforce: 15
+  jumpforce: 16
   anim: {fileID: 4363631211226994801}
   ground:
     serializedVersion: 2

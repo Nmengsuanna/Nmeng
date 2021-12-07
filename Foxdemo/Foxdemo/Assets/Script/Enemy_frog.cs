@@ -56,13 +56,6 @@ public class Enemy_frog : Enemy
         //如果面朝左边
         if (faceleft)
         {
-            //forg触碰地板时,速度设置为负方向,向上跳跃
-            if (coll.IsTouchingLayers (Ground))
-            {
-                anim.SetBool("jump", true);
-                rb.velocity = new Vector2(-speed, jumpforce);
-            }
-            
             //如果说他的位置超过了左点
             if (rb.transform.position.x < leftx)
             {
@@ -71,19 +64,28 @@ public class Enemy_frog : Enemy
                 //朝右
                 faceleft = false;
             }
+            
+            //forg触碰地板时,速度设置为负方向,向上跳跃
+            else if (coll.IsTouchingLayers (Ground))
+            {
+                anim.SetBool("jump", true);
+                rb.velocity = new Vector2(-speed, jumpforce);
+            }
+            
         }
         else
         {
-            if (coll.IsTouchingLayers(Ground))
-            {
-                anim.SetBool("jump", true);
-                rb.velocity = new Vector2(speed, jumpforce);
-            }
             if (rb.transform.position.x > rightx)
             {
                 rb.transform.localScale = new Vector3(1, 1, 1);
                 faceleft = true;
             }
+            else if (coll.IsTouchingLayers(Ground))
+            {
+                anim.SetBool("jump", true);
+                rb.velocity = new Vector2(speed, jumpforce);
+            }
+            
         }
     }
     //改变动画

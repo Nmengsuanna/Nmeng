@@ -32,7 +32,7 @@ public class Enemy_eagle : Enemy
         Destroy(toppoint.gameObject);
         Destroy(bottompoint.gameObject);
         
-
+        
     }
 
     

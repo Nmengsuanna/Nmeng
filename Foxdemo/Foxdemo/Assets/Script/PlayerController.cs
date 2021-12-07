@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public Collider2D DisColl;
     //判断是否顶头
     public Transform CeilingCheck;
+    
 
 
 
@@ -109,13 +110,15 @@ public class PlayerController : MonoBehaviour
     //碰撞触发器
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //物品收集
+        Collection collection = collision.gameObject.GetComponent<Collection>();
         if (collision.tag == "Collection")
         {
-            Destroy(collision.gameObject);
+            collection.IsCollected();
             Cherry += 1;
             CherryNum.text = Cherry.ToString();
         }
-        
+        //死亡重开
         if(collision.tag == "DeadLine")
         {
             GetComponent<AudioSource>().enabled = false;
@@ -171,6 +174,10 @@ public class PlayerController : MonoBehaviour
     void Restart()
     {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    void Colllected()
+    {
+        
     }
 } 
 

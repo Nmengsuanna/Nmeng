@@ -56,3 +56,9 @@ TagManager:
   - name: Player
     uniqueID: 2101887599
     locked: 0
+  - name: Hide
+    uniqueID: 1445948423
+    locked: 0
+  - name: FrontEnvironment
+    uniqueID: 298104127
+    locked: 0
