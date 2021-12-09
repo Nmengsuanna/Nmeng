@@ -29,7 +29,11 @@ public class PlayerController : MonoBehaviour
     //下蹲关闭的碰撞箱
     public Collider2D DisColl;
     //判断是否顶头
-    public Transform CeilingCheck;
+    public Transform CeilingCheck,GroundCheck;
+    //额外跳跃次数
+    public int extrajump;
+    //
+    private bool isGround;
     
 
 
@@ -45,8 +49,10 @@ public class PlayerController : MonoBehaviour
         if (isHurt != true) 
         {
             Movement();
+            Jump();
         }
         SwitchAnim();
+        isGround = Physics2D.OverlapCircle(GroundCheck.position, 0.2f,ground);
     }
     //角色移动
     void Movement()
@@ -69,14 +75,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(facedirection, 1, 1);
 
         }
-       //角色跳跃
-        if(Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))
-        {
-            jumpAudio.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
-            anim.SetBool("jumping", true);
-         
-        }
+       
     }
     
     //改变动画
@@ -175,8 +174,19 @@ public class PlayerController : MonoBehaviour
     {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    void Colllected()
+    void Jump()
     {
+        if (isGround)
+        {
+            extrajump = 1;
+        }
+        if(Input.GetButtonDown("Jump")&& extrajump > 0)
+        {
+            rb.velocity = Vector2.up * jumpforce;
+            extrajump--;
+            anim.SetBool("jumping", true);
+            jumpAudio.Play();
+        }
         
     }
 } 

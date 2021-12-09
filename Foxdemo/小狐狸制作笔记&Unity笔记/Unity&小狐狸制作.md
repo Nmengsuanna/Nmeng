@@ -746,4 +746,14 @@
     }
     ```
 
-    
+
+- 二段跳跃
+
+  设置跳跃次数，每跳一次减少一次次数，当触碰的地面的时候恢复次数，当有跳跃次数的时候才能起跳。
+
+- 单向平台
+
+  给tilemap增加组件Platform Effector 2D，可以在Tilemap Collider2D里面勾选Used by Effector
+
+  启用Mask则可以下落(目前下落不了的原因尚不清楚)；
+
