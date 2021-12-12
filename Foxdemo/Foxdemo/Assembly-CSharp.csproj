@@ -60,9 +60,10 @@
     <Compile Include="Assets\Script\PlayerController.cs" />
     <Compile Include="Assets\Script\Enemy_frog.cs" />
     <Compile Include="Assets\Script\Enemy_eagle.cs" />
+    <Compile Include="Assets\Script\Gem.cs" />
     <Compile Include="Assets\Script\Cherry.cs" />
     <Compile Include="Assets\Script\Collection.cs" />
-    <Compile Include="Assets\Script\Gem.cs" />
+    <Compile Include="Assets\Script\Opossum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\CasualGameBGM05\ReadMe.txt" />

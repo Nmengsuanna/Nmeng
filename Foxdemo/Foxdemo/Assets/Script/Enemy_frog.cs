@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy_frog : Enemy
 {
-    //获取刚体
-    private Rigidbody2D rb;
     //导入左右点坐标
     public Transform leftpoint, rightpoint;
     //设置面朝向
@@ -20,8 +18,8 @@ public class Enemy_frog : Enemy
     
     //导入地面
     public LayerMask Ground;
-    //导入2D碰撞体
-    private Collider2D coll;
+    
+    
 
 
     //将start设置成重载的，也就是可以将内容重新写入父类中以取代原本父类的内容

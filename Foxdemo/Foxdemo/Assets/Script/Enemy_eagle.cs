@@ -8,8 +8,6 @@ public class Enemy_eagle : Enemy
     private bool isup = true;
     //组件
     //private Animator anim;
-    private Collider2D coll;
-    private Rigidbody2D rb;
     public Transform toppoint, bottompoint;
     //存量
     private float topy;
@@ -22,7 +20,6 @@ public class Enemy_eagle : Enemy
     {
         base.Start();
         //获得碰撞体
-        coll = GetComponent<Collider2D>();
         //获得刚体组件
         rb = GetComponent<Rigidbody2D>();
         //赋值给
@@ -38,7 +35,10 @@ public class Enemy_eagle : Enemy
     
     void Update()
     {
-        Movement(); 
+        if (jumpOn == false)
+        {
+            Movement();
+        }
     }
     //移动
     void Movement()

@@ -14,11 +14,11 @@ public class PlayerController : MonoBehaviour
     public float jumpforce;
     //控制组件动画器
     public Animator anim;
-    //
+    //设置地面
     public LayerMask ground;
-    //
+    //碰撞体
     public Collider2D coll;
-    //
+    //樱桃数目
     public int Cherry = 0;
     //樱桃UI数目
     public Text CherryNum;
@@ -32,8 +32,10 @@ public class PlayerController : MonoBehaviour
     public Transform CeilingCheck,GroundCheck;
     //额外跳跃次数
     public int extrajump;
-    //
+    //判断是否在地面
     private bool isGround;
+    //
+    private bool death = false;
     
 
 
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        if (isHurt != true) 
+        if (isHurt != true && death == false) 
         {
             Movement();
             Jump();
@@ -81,15 +83,12 @@ public class PlayerController : MonoBehaviour
     //改变动画
     void SwitchAnim()
     {
-        if (anim.GetBool("jumping"))
-        {
-            if (rb.velocity.y < 0)
+        if (rb.velocity.y < 0)
             {
                 anim.SetBool("idle", false);
                 anim.SetBool("jumping", false);
                 anim.SetBool("falling", true);
             }
-        }
         else if (isHurt)
         {
             if (Mathf.Abs(rb.velocity.x) < 0.1f)
@@ -120,6 +119,8 @@ public class PlayerController : MonoBehaviour
         //死亡重开
         if(collision.tag == "DeadLine")
         {
+            death = true;
+            rb.velocity = new Vector2(0, 0);
             GetComponent<AudioSource>().enabled = false;
             Invoke("Restart", 2f);
         }
@@ -170,10 +171,13 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    //重开游戏
     void Restart()
     {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    //可多段跳跳跃
     void Jump()
     {
         if (isGround)
