@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     //控制组件刚体
     public Rigidbody2D rb;
     //变量速度
-    public float speed;
+    private float speed;
     //变量跳跃力度
     public float jumpforce;
     //控制组件动画器
@@ -18,11 +19,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     //碰撞体
     private CapsuleCollider2D capColl;
-    private BoxCollider2D boxColl;
+    private Collider2D edgColl;
     //樱桃数目
     public int Cherry = 0;
+    public int Gem = 0;
     //樱桃UI数目
-    public Text CherryNum;
+    //public Text CherryNum;
     //是否受伤
     private bool isHurt;
     //传入音源
@@ -40,18 +42,27 @@ public class PlayerController : MonoBehaviour
     Vector2 colliderStandOffset;
     Vector2 colliderCrouchSize;
     Vector2 colliderCrouchOffset;
-    
+    //判断是否是下落
+    private bool falling = false;
+    //获得角色方位
+    private Transform playerTransform;
+    //樱桃数量UI
+    public TMP_Text CherryNum;
+    //钻石数量UI
+    public TMP_Text GemNum;
 
 
 
     void Start()
     {
-        boxColl = GetComponent<BoxCollider2D>();
+        edgColl = GetComponent<EdgeCollider2D>();
         capColl = GetComponent<CapsuleCollider2D>();
         colliderStandSize = capColl.size;
         colliderStandOffset = capColl.offset;
         colliderCrouchSize = new Vector2(capColl.size.x, capColl.size.y * 0.5f);
         colliderCrouchOffset = new Vector2(capColl.offset.x, capColl.offset.y * 1.5f);
+        playerTransform = GetComponent<Transform>();
+        speed = 8f;
     }
 
     
@@ -92,25 +103,31 @@ public class PlayerController : MonoBehaviour
     //改变动画
     void SwitchAnim()
     {
-        if (rb.velocity.y < 0)
+        if (anim.GetBool("jumping"))
+        {
+            if (rb.velocity.y < 0)
             {
-                anim.SetBool("idle", false);
+                falling = true;
                 anim.SetBool("jumping", false);
                 anim.SetBool("falling", true);
             }
+        }
+        else if (rb.velocity.y < 0)
+        {
+            falling = true;
+        }
         else if (isHurt)
         {
             if (Mathf.Abs(rb.velocity.x) < 0.1f)
             {
                 isHurt = false;
                 anim.SetBool("hurt", false);
-                anim.SetBool("idle", true); 
             }
         }
         else if (capColl.IsTouchingLayers(ground))
         {
+            falling = false;
             anim.SetBool("falling", false);
-            anim.SetBool("idle", true);
         }
         Crouch();
     }
@@ -119,15 +136,22 @@ public class PlayerController : MonoBehaviour
     {
         //物品收集
         Collection collection = collision.gameObject.GetComponent<Collection>();
-        if (collision.tag == "Collection")
+        if (collision.tag == "Cherry")
         {
             collection.gameObject.tag = "Dead";
             collection.IsCollected();
             Cherry += 1;
             CherryNum.text = Cherry.ToString();
         }
+        if (collision.tag == "Gem")
+        {
+            collection.gameObject.tag = "Dead";
+            collection.IsCollected();
+            Gem += 1;
+            GemNum.text = Gem.ToString();
+        }
         //死亡重开
-        if(collision.tag == "DeadLine")
+        if (collision.tag == "DeadLine")
         {
             death = true;
             rb.velocity = new Vector2(0, 0);
@@ -142,7 +166,7 @@ public class PlayerController : MonoBehaviour
         {
             Enemy enemy  = collision.gameObject.GetComponent<Enemy>();
             //消灭敌人
-            if (anim.GetBool("falling"))
+            if (falling == true && playerTransform.position.y > enemy.transform.position.y)
             {
                 enemy.JumpOn();
                 rb.velocity = new Vector2(rb.velocity.x, jumpforce);
@@ -167,21 +191,23 @@ public class PlayerController : MonoBehaviour
     void Crouch()
     {
         //检查头顶
-        if (!Physics2D.OverlapCircle(CeilingCheck.position, 0.2f,ground)) 
+        if (!Physics2D.OverlapCircle(CeilingCheck.position, 0.1f,ground)) 
         { 
             if (Input.GetButton("Crouch"))
             {
+                speed = 4f;
                 capColl.size = colliderCrouchSize;
                 capColl.offset = colliderCrouchOffset;
-                boxColl.enabled = false;
+                //edgColl.enabled = false;
                 anim.SetBool("crouching", true);
                 //DisColl.enabled = false;
             }
             else 
             {
+                speed = 8f;
                 capColl.size = colliderStandSize;
                 capColl.offset = colliderStandOffset;
-                boxColl.enabled = true;
+                //edgColl.enabled = true;
                 anim.SetBool("crouching", false);
                 //DisColl.enabled = true;
             }
@@ -205,6 +231,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.up * jumpforce;
             extrajump--;
             anim.SetBool("jumping", true);
+            anim.SetBool("falling", false);
             jumpAudio.Play();
         }
         

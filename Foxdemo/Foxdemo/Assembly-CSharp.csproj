@@ -53,6 +53,7 @@
     <UnityVersion>2020.3.21f1c1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Menu.cs" />
     <Compile Include="Assets\Script\EnterHouse_Dialogue.cs" />
     <Compile Include="Assets\Script\Door.cs" />
     <Compile Include="Assets\Script\Parallax.cs" />
@@ -64,7 +65,9 @@
     <Compile Include="Assets\Script\Opossum.cs" />
     <Compile Include="Assets\Script\Cherry.cs" />
     <Compile Include="Assets\Script\Collection.cs" />
-    <Compile Include="Assets\Script\Menu.cs" />
+    <Compile Include="Assets\HealthHeartSystem\Scripts\PlayerStats.cs" />
+    <Compile Include="Assets\HealthHeartSystem\Scripts\HealthBarController.cs" />
+    <Compile Include="Assets\HealthHeartSystem\Scripts\HealthBarHUDTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -78,6 +81,7 @@
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\HealthHeartSystem\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1584395752}
   m_Layer: 0
   m_Name: Cherry
-  m_TagString: Collection
+  m_TagString: Cherry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

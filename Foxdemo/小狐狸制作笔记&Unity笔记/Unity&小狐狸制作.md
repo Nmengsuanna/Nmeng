@@ -235,9 +235,9 @@
 
 - 跳跃降落动画
 
-  - 导入跳跃动画 逻辑
+  - 导入跳跃动画
 
-    和左右移动动画的导入一样
+    逻辑和左右移动动画的导入一样
 
   - 布尔形
 
@@ -823,6 +823,15 @@
        //找到一个物品，它处于该场景层级中的"Canvas/MainMenu/UI"，把他的显示设为"true"
        ```
 
-  
+
+- TMP使用
+
+  ```c#
+  //使用TMP的头文件
+  using TMPro;
+  //更改TMP的text中的内容
+  (GameObject).GetComponent<TMP_Text>().text = (String)
+  ```
 
   
+

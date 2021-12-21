@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - DeadLine
   - Dead
+  - Cherry
+  - Gem
   layers:
   - Default
   - TransparentFX
