@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     //设置地面
     public LayerMask ground;
     //碰撞体
-    public Collider2D coll;
+    private CapsuleCollider2D capColl;
+    private BoxCollider2D boxColl;
     //樱桃数目
     public int Cherry = 0;
     //樱桃UI数目
@@ -26,8 +27,6 @@ public class PlayerController : MonoBehaviour
     private bool isHurt;
     //传入音源
     public AudioSource jumpAudio;
-    //下蹲关闭的碰撞箱
-    public Collider2D DisColl;
     //判断是否顶头
     public Transform CeilingCheck,GroundCheck;
     //额外跳跃次数
@@ -36,13 +35,23 @@ public class PlayerController : MonoBehaviour
     private bool isGround;
     //
     private bool death = false;
+    //
+    Vector2 colliderStandSize;
+    Vector2 colliderStandOffset;
+    Vector2 colliderCrouchSize;
+    Vector2 colliderCrouchOffset;
     
 
 
 
     void Start()
     {
-    
+        boxColl = GetComponent<BoxCollider2D>();
+        capColl = GetComponent<CapsuleCollider2D>();
+        colliderStandSize = capColl.size;
+        colliderStandOffset = capColl.offset;
+        colliderCrouchSize = new Vector2(capColl.size.x, capColl.size.y * 0.5f);
+        colliderCrouchOffset = new Vector2(capColl.offset.x, capColl.offset.y * 1.5f);
     }
 
     
@@ -98,7 +107,7 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("idle", true); 
             }
         }
-        else if (coll.IsTouchingLayers(ground))
+        else if (capColl.IsTouchingLayers(ground))
         {
             anim.SetBool("falling", false);
             anim.SetBool("idle", true);
@@ -112,6 +121,7 @@ public class PlayerController : MonoBehaviour
         Collection collection = collision.gameObject.GetComponent<Collection>();
         if (collision.tag == "Collection")
         {
+            collection.gameObject.tag = "Dead";
             collection.IsCollected();
             Cherry += 1;
             CherryNum.text = Cherry.ToString();
@@ -161,13 +171,19 @@ public class PlayerController : MonoBehaviour
         { 
             if (Input.GetButton("Crouch"))
             {
+                capColl.size = colliderCrouchSize;
+                capColl.offset = colliderCrouchOffset;
+                boxColl.enabled = false;
                 anim.SetBool("crouching", true);
-                DisColl.enabled = false;
+                //DisColl.enabled = false;
             }
             else 
             {
+                capColl.size = colliderStandSize;
+                capColl.offset = colliderStandOffset;
+                boxColl.enabled = true;
                 anim.SetBool("crouching", false);
-                DisColl.enabled = true;
+                //DisColl.enabled = true;
             }
         }
     }
