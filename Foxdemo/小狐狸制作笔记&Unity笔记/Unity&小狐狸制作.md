@@ -833,5 +833,32 @@
   (GameObject).GetComponent<TMP_Text>().text = (String)
   ```
 
-  
+
+- 暂停游戏
+
+  ```c#
+  //为以正常游戏的多少倍速度播放
+  Time.timeScale = ;
+  //例如暂停游戏
+  Time.timeScale = 0f;
+  ```
+
+- 声音调整
+
+  1. 在Asset里面创建一个Audio Mixer
+
+  2. 将Audio Master添加到音源(Audio Source)的输出(Output)里面
+
+  3. 将Audio Mixer的**Master**与Slider中的**Vaule**绑定，代码如下
+
+     ```c#
+     public void SetVolume(float value)//这里创建的value会与后面Slider中的value呼应
+         {
+             audioMixer.SetFloat("MainVolume", value);
+         }
+     ```
+
+  4. 设置Master中的音量可由脚本来改变(右键) Audio Mixer - expose Volume  to script 
+  5. 别忘记更改名字
+  6. 选择脚本，一定要选Dynamic那里面的脚本，这样才能将value和Volume绑定 .
 

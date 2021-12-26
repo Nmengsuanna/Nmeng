@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private bool isHurt;
     //传入音源
     public AudioSource jumpAudio;
+    public AudioSource hurtAudio;
+    public AudioSource deadAudio;
     //判断是否顶头
     public Transform CeilingCheck,GroundCheck;
     //额外跳跃次数
@@ -50,12 +52,16 @@ public class PlayerController : MonoBehaviour
     public TMP_Text CherryNum;
     //钻石数量UI
     public TMP_Text GemNum;
+    //生命值
+    public int Health = 3;
+    //消灭怪物检查点
+    private float mobKillpoint;
+    //
 
 
 
     void Start()
     {
-        edgColl = GetComponent<EdgeCollider2D>();
         capColl = GetComponent<CapsuleCollider2D>();
         colliderStandSize = capColl.size;
         colliderStandOffset = capColl.offset;
@@ -63,6 +69,8 @@ public class PlayerController : MonoBehaviour
         colliderCrouchOffset = new Vector2(capColl.offset.x, capColl.offset.y * 1.5f);
         playerTransform = GetComponent<Transform>();
         speed = 8f;
+        mobKillpoint = GroundCheck.position.y;
+   
     }
 
     
@@ -153,10 +161,11 @@ public class PlayerController : MonoBehaviour
         //死亡重开
         if (collision.tag == "DeadLine")
         {
+            deadAudio.Play();
             death = true;
             rb.velocity = new Vector2(0, 0);
             GetComponent<AudioSource>().enabled = false;
-            Invoke("Restart", 2f);
+            Invoke("Restart", 3f);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -166,7 +175,7 @@ public class PlayerController : MonoBehaviour
         {
             Enemy enemy  = collision.gameObject.GetComponent<Enemy>();
             //消灭敌人
-            if (falling == true && playerTransform.position.y > enemy.transform.position.y)
+            if (falling == true && rb.position.y > enemy.transform.position.y)
             {
                 enemy.JumpOn();
                 rb.velocity = new Vector2(rb.velocity.x, jumpforce);
@@ -175,15 +184,19 @@ public class PlayerController : MonoBehaviour
             //碰到敌人受伤后反弹
             else if (transform.position.x < collision.gameObject.transform.position.x)
             {
-                rb.velocity = new Vector2(-10f, rb.velocity.y);
+                hurtAudio.Play();
                 isHurt = true;
+                rb.velocity = new Vector2(-10f, rb.velocity.y);
                 anim.SetBool("hurt", true);
+                HealthDeath();
             }
             else if (transform.position.x > collision.gameObject.transform.position.x)
             {
-                rb.velocity = new Vector2(10f, rb.velocity.y);
+                hurtAudio.Play();
                 isHurt = true;
+                rb.velocity = new Vector2(10f, rb.velocity.y);
                 anim.SetBool("hurt", true);
+                HealthDeath();
             }
         }     
     }
@@ -216,7 +229,6 @@ public class PlayerController : MonoBehaviour
     //重开游戏
     void Restart()
     {
-        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     //可多段跳跳跃
@@ -234,7 +246,28 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("falling", false);
             jumpAudio.Play();
         }
-        
+    }
+    void HealthDeath()
+    {
+        Health --;
+        if (Health == 2)
+        {
+            GameObject.Find("UI/Heart2").SetActive(false);
+        }
+        else if (Health == 1)
+        {
+            GameObject.Find("UI/Heart1").SetActive(false);
+        }
+        else if (Health == 0)
+        {
+            GetComponent<AudioSource>().enabled = false;
+            deadAudio.Play();
+            GameObject.Find("UI/Heart").SetActive(false);
+            rb.velocity = new Vector2(0.2f, 16f);
+            gameObject.GetComponent<EdgeCollider2D>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+            Invoke("Restart", 4f);
+        }
     }
 } 
 
