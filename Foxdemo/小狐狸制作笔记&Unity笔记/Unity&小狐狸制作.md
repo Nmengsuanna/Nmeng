@@ -862,3 +862,47 @@
   5. 别忘记更改名字
   6. 选择脚本，一定要选Dynamic那里面的脚本，这样才能将value和Volume绑定 .
 
+- 音效管理
+
+  - 如何实现
+
+    单独创建一个空的项目，对他添加AudioSource的组件，通过代码对组件中的AudioClip进行改变。
+
+  - 操作
+
+    ```c#
+    //声音组件
+    public AudioSource audioSource;
+    
+    [SerializeField]//头文件，让private的也可以在inspector里面看到并赋值
+    private AudioClip jumpAudio;
+    //跳跃
+    public void JumpAudio()
+    {
+        audioSource.clip = jumpAudio;
+        audioSource.Play();
+    }
+    ```
+
+    再运用我们之前学过的类，来调用我们写的这个类就可以播放声音了。
+
+    但是试想一下，每一次播放声音都要引用这个类的代码，是否有些累赘呢？为此，我们引出下面的方法。
+
+- 实例化对象
+
+  - 我们实例化需要的对象，就可以再其他脚本里面直接引用这个被实例化对象里面的函数等。
+
+  - 操作
+
+    ```c#
+    //实例化对象
+    public static AudioManager instance;
+    //当脚本被唤醒的时候会启用awake函数
+    private void Awake()
+    {
+        instance = this;
+    }
+    ```
+
+    
+

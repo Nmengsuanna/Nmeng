@@ -59,15 +59,16 @@
     <Compile Include="Assets\Script\Parallax.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\PlayerController.cs" />
+    <Compile Include="Assets\HealthHeartSystem\Scripts\HealthBarController.cs" />
     <Compile Include="Assets\Script\Enemy_frog.cs" />
     <Compile Include="Assets\Script\Enemy_eagle.cs" />
     <Compile Include="Assets\Script\Gem.cs" />
     <Compile Include="Assets\Script\Opossum.cs" />
-    <Compile Include="Assets\Script\Cherry.cs" />
-    <Compile Include="Assets\Script\Collection.cs" />
     <Compile Include="Assets\HealthHeartSystem\Scripts\PlayerStats.cs" />
-    <Compile Include="Assets\HealthHeartSystem\Scripts\HealthBarController.cs" />
+    <Compile Include="Assets\Script\Cherry.cs" />
     <Compile Include="Assets\HealthHeartSystem\Scripts\HealthBarHUDTester.cs" />
+    <Compile Include="Assets\Script\Collection.cs" />
+    <Compile Include="Assets\Script\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

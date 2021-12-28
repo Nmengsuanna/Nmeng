@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         gameObject.tag = "Dead";
         Destroy(GetComponent<Rigidbody2D>());
         GetComponent<Collider2D>().enabled = false;
-        deathAudio.Play();
+        AudioManager.instance.DeadAudio();
         anim.SetTrigger("Death");
     }
 

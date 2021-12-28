@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         playerTransform = GetComponent<Transform>();
         speed = 8f;
         mobKillpoint = GroundCheck.position.y;
-   
+
     }
 
     
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
             //碰到敌人受伤后反弹
             else if (transform.position.x < collision.gameObject.transform.position.x)
             {
-                hurtAudio.Play();
+                AudioManager.instance.HurtAudio();
                 isHurt = true;
                 rb.velocity = new Vector2(-10f, rb.velocity.y);
                 anim.SetBool("hurt", true);
@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (transform.position.x > collision.gameObject.transform.position.x)
             {
-                hurtAudio.Play();
+                AudioManager.instance.HurtAudio();
                 isHurt = true;
                 rb.velocity = new Vector2(10f, rb.velocity.y);
                 anim.SetBool("hurt", true);
@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
             extrajump--;
             anim.SetBool("jumping", true);
             anim.SetBool("falling", false);
-            jumpAudio.Play();
+            AudioManager.instance.JumpAudio();
         }
     }
     void HealthDeath()
@@ -261,7 +261,7 @@ public class PlayerController : MonoBehaviour
         else if (Health == 0)
         {
             GetComponent<AudioSource>().enabled = false;
-            deadAudio.Play();
+            AudioManager.instance.EndAudio();
             GameObject.Find("UI/Heart").SetActive(false);
             rb.velocity = new Vector2(0.2f, 16f);
             gameObject.GetComponent<EdgeCollider2D>().enabled = false;

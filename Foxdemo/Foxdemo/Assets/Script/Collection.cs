@@ -26,7 +26,7 @@ public class Collection : MonoBehaviour
     //收集音乐与动画
     public void IsCollected()
     {
-        collectedAudio.Play();
+        AudioManager.instance.CollectedAudio();
         anim.SetTrigger("Is_Collected");
     }
     //隐藏
